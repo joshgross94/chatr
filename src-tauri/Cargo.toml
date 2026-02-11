@@ -1,0 +1,72 @@
+[package]
+name = "chatr"
+version = "0.1.0"
+description = "P2P Decentralized Chat"
+authors = ["Chatr"]
+license = "MIT"
+edition = "2021"
+rust-version = "1.77.2"
+
+[lib]
+name = "chatr_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["custom-protocol", "unstable"] }
+tauri-plugin-log = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+log = "0.4"
+tokio = { version = "1", features = ["full"] }
+rusqlite = { version = "0.32", features = ["bundled"] }
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1", features = ["v4", "serde"] }
+directories = "6"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+rand = "0.8"
+
+clap = { version = "4", features = ["derive"] }
+axum = { version = "0.7", features = ["ws"] }
+tower-http = { version = "0.5", features = ["cors"] }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+webkit2gtk = { version = "=2.0.2", features = ["v2_38"] }
+
+# Audio
+cpal = "0.15"
+opus = "0.3"
+
+# WebRTC
+webrtc = "0.11"
+
+# Video / Image encoding
+image = { version = "0.25", default-features = false, features = ["jpeg"] }
+
+# Camera
+nokhwa = { version = "0.10", features = ["input-native"] }
+
+# Streaming
+async-stream = "0.3"
+bytes = "1"
+
+libp2p = { version = "0.54", features = [
+  "gossipsub",
+  "mdns",
+  "kad",
+  "noise",
+  "yamux",
+  "tcp",
+  "quic",
+  "identify",
+  "relay",
+  "dcutr",
+  "autonat",
+  "tokio",
+  "macros",
+  "dns",
+  "ed25519",
+] }
